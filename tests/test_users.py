@@ -1,0 +1,14 @@
+from fastapi.testclient import TestClient
+from backend.main import app
+
+client = TestClient(app)
+
+def test_read_root():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Bienvenue sur RadarEditorial"}
+
+def test_get_user():
+    response = client.get("/users/1")
+    assert response.status_code == 200
+    assert response.json()["user_id"] == 1
